@@ -204,6 +204,8 @@ const DashboardCharts: React.FC = () => {
         },
     };
 
+
+
     // ======== Budget Status (Donut Chart) ========
     const budgetSeries = [65, 35]; // Used, Remaining
     const totalBudget = budgetSeries.reduce((a, b) => a + b, 0);
@@ -432,6 +434,134 @@ const DashboardCharts: React.FC = () => {
 
 
 
+     // ======== Budget vs Actualisation A ========
+    const budgetActualisationSeries = [10, 30, 10]; // Completed, In Development (2), Remaining tasks
+    const totalbudgetActualisationSeries = budgetActualisationSeries.reduce((a, b) => a + b, 0);
+
+    const budgetActualisationOptions = {
+        chart: { type: "donut" },
+        labels: ["Budgeted FY-25", "Actualisation", "Pending"],
+        colors: ["#6c757d", "#00BCD4", "#dc3545"], // light cyan, gray tones
+        dataLabels: { enabled: false },
+        legend: {
+            show: true,
+            position: "left",
+            fontSize: "13px",
+            markers: {
+                width: 10,
+                height: 10,
+                radius: 50,
+                offsetX: -5,
+                offsetY: 0,
+            },
+            formatter: function (seriesName: string, opts: any) {
+                const value = opts.w.globals.series[opts.seriesIndex];
+                return `${seriesName}<br/><span style="font-weight:500; color:#6c757d; font-size:12px;">${value}</span>`;
+            },
+        },
+        tooltip: {
+            enabled: true,
+            y: { formatter: (val: number) => `${val} Tasks` },
+        },
+        plotOptions: {
+            pie: {
+                startAngle: -90,
+                endAngle: 90,
+                donut: {
+                    size: "55%",
+                    labels: {
+                        show: true,
+                        name: {
+                            show: true,
+                            offsetY: 15,
+                            color: "#9E9E9E",
+                            fontSize: "14px",
+                        },
+                        value: {
+                            show: true,
+                            fontSize: "22px",
+                            fontWeight: "bold",
+                            offsetY: -30,
+                            formatter: () => `${totalbudgetActualisationSeries}`,
+                        },
+                        total: {
+                            show: true,
+                            label: "Total Task",
+                            color: "#9E9E9E",
+                            fontSize: "14px",
+                            formatter: () => `${totalbudgetActualisationSeries}`,
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+     // ======== Budget vs Actualisation B ========
+    const budgetActualisationSeriesB = [25, 10, 15]; // Completed, In Development (2), Remaining tasks
+    const totalbudgetActualisationSeriesB = budgetActualisationSeriesB.reduce((a, b) => a + b, 0);
+
+    const budgetActualisationOptionsB = {
+        chart: { type: "donut" },
+        labels: ["Total Running Projects in FY-25", "Budgeted", "UnBudgeted"],
+        colors: ["#00BCD4", "#dc3545", "#6c757d"], // light cyan, gray tones
+        dataLabels: { enabled: false },
+        legend: {
+            show: true,
+            position: "left",
+            fontSize: "13px",
+            markers: {
+                width: 10,
+                height: 10,
+                radius: 50,
+                offsetX: -5,
+                offsetY: 0,
+            },
+            formatter: function (seriesName: string, opts: any) {
+                const value = opts.w.globals.series[opts.seriesIndex];
+                return `${seriesName}<br/><span style="font-weight:500; color:#6c757d; font-size:12px;">${value}</span>`;
+            },
+        },
+        tooltip: {
+            enabled: true,
+            y: { formatter: (val: number) => `${val} Tasks` },
+        },
+        plotOptions: {
+            pie: {
+                startAngle: -90,
+                endAngle: 90,
+                donut: {
+                    size: "55%",
+                    labels: {
+                        show: true,
+                        name: {
+                            show: true,
+                            offsetY: 15,
+                            color: "#9E9E9E",
+                            fontSize: "14px",
+                        },
+                        value: {
+                            show: true,
+                            fontSize: "22px",
+                            fontWeight: "bold",
+                            offsetY: -30,
+                            formatter: () => `${totalbudgetActualisationSeriesB}`,
+                        },
+                        total: {
+                            show: true,
+                            label: "Total Task",
+                            color: "#9E9E9E",
+                            fontSize: "14px",
+                            formatter: () => `${totalbudgetActualisationSeriesB}`,
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+
+
     // ======== Render Section ========
     return (
         <div className="container my-4">
@@ -512,6 +642,34 @@ const DashboardCharts: React.FC = () => {
                             series={projectSeriesForGraph}
                             type="bar"
                             height={350}
+                        />
+                    </div>
+                </div>
+
+                  {/* Budget vs Actualisation A */}
+                <div className="col-md-6 mt-4">
+                    <div className="card shadow-sm p-3">
+                        <h6 className="text-secondary mb-3 fw-bold">Budget vs Actualisation against</h6>
+                        <h5 className="fw-bold mb-3">FY-25 Budget</h5>
+                        <Chart
+                            options={budgetActualisationOptions}
+                            series={budgetActualisationSeries}
+                            type="donut"
+                            height={320}
+                        />
+                    </div>
+                </div>
+
+                {/* Budget vs Actualisation B */}
+                <div className="col-md-6 mt-4">
+                    <div className="card shadow-sm p-3">
+                        <h6 className="text-secondary mb-3 fw-bold">Budget vs Actualisation against</h6>
+                        <h5 className="fw-bold mb-3">FY-25 Budget</h5>
+                        <Chart
+                            options={budgetActualisationOptionsB}
+                            series={budgetActualisationSeriesB}
+                            type="donut"
+                            height={320}
                         />
                     </div>
                 </div>
