@@ -14,7 +14,7 @@ const formatTime = (hours: number) => {
 
 const DashboardCharts: React.FC = () => {
   // ======== Top Projects (Double Radial Bar) ========
-  const topProjectsSeries = [5.75, 12.67]; // 5h45m, 12h40m
+  const topProjectsSeries = [25.00, 50.00];
   const totalHours = topProjectsSeries.reduce((a, b) => a + b, 0);
   const totalFormatted = formatTime(totalHours);
 
@@ -35,9 +35,7 @@ const DashboardCharts: React.FC = () => {
         },
         dataLabels: {
           show: true,
-          name: {
-            show: true,
-          },
+          name: { show: true },
           value: {
             show: true,
             fontSize: "14px",
@@ -51,7 +49,7 @@ const DashboardCharts: React.FC = () => {
         },
       },
     },
-    colors: ["#007bff", "#dc3545"], // blue, red
+    colors: ["#007bff", "#dc3545"],
     labels: ["Default Project", "ABCD Project"],
     legend: {
       show: true,
@@ -80,28 +78,24 @@ const DashboardCharts: React.FC = () => {
   };
 
   // ======== Members (Donut Chart) ========
-  const membersSeries = [7, 3]; // online 7, offline 3
+  const membersSeries = [700, 30]; // Online, Offline
   const totalMembers = membersSeries.reduce((a, b) => a + b, 0);
 
   const membersOptions = {
     chart: { type: "donut" },
     labels: ["Online", "Offline"],
-    colors: ["#17a2b8", "#6c757d"],
-    dataLabels: { enabled: true },
+    colors: ["#00C853", "#E0E0E0"],
+    dataLabels: { enabled: false },
     legend: {
       show: true,
       position: "left",
       fontSize: "13px",
       markers: {
-        width: 3,
-        height: 20,
-        strokeWidth: 0,
-        strokeColor: "#fff",
-        radius: 0,
+        width: 10,
+        height: 10,
+        radius: 50,
         offsetX: -5,
-        offsetY: 2,
-        customHTML: () =>
-          '<span style="display:inline-block;width:6px;height:34px;background:currentColor;margin-right:8px;vertical-align:middle;border-radius:1px;"></span>',
+        offsetY: 0,
       },
       formatter: function (seriesName: string, opts: any) {
         const value = opts.w.globals.series[opts.seriesIndex];
@@ -114,14 +108,94 @@ const DashboardCharts: React.FC = () => {
     },
     plotOptions: {
       pie: {
+        startAngle: 40,
+        endAngle: 400,
         donut: {
-          size: "70%",
+          size: "55%",
           labels: {
             show: true,
+            name: {
+              show: true,
+              offsetY: 10,
+              color: "#9E9E9E",
+              fontSize: "14px",
+            },
+            value: {
+              show: true,
+              fontSize: "22px",
+              fontWeight: "bold",
+              offsetY: -30,
+              formatter: () => `${totalMembers}`,
+            },
             total: {
               show: true,
               label: "Members",
+              color: "#9E9E9E",
+              fontSize: "14px",
               formatter: () => `${totalMembers}`,
+            },
+          },
+        },
+      },
+    },
+  };
+
+  // ======== Task Status (Donut Chart) ========
+  const taskSeries = [25, 25, 50]; // Completed, In Development (2), Remaining tasks
+  const totalTasks = taskSeries.reduce((a, b) => a + b, 0);
+
+  const taskOptions = {
+    chart: { type: "donut" },
+    labels: ["Completed", "In Development", "Remaining"],
+    colors: ["#00BCD4", "#B0BEC5", "#CFD8DC"], // light cyan, gray tones
+    dataLabels: { enabled: false },
+    legend: {
+      show: true,
+      position: "left",
+      fontSize: "13px",
+      markers: {
+        width: 10,
+        height: 10,
+        radius: 50,
+        offsetX: -5,
+        offsetY: 0,
+      },
+      formatter: function (seriesName: string, opts: any) {
+        const value = opts.w.globals.series[opts.seriesIndex];
+        return `${seriesName}<br/><span style="font-weight:500; color:#6c757d; font-size:12px;">${value}</span>`;
+      },
+    },
+    tooltip: {
+      enabled: true,
+      y: { formatter: (val: number) => `${val} Tasks` },
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -110,
+        endAngle: 250,
+        donut: {
+          size: "55%",
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              offsetY: 15,
+              color: "#9E9E9E",
+              fontSize: "14px",
+            },
+            value: {
+              show: true,
+              fontSize: "22px",
+              fontWeight: "bold",
+              offsetY: -30,
+              formatter: () => `${totalTasks}`,
+            },
+            total: {
+              show: true,
+              label: "Total Task",
+              color: "#9E9E9E",
+              fontSize: "14px",
+              formatter: () => `${totalTasks}`,
             },
           },
         },
@@ -133,7 +207,7 @@ const DashboardCharts: React.FC = () => {
   return (
     <div className="container my-4">
       <div className="row">
-        {/* Left Chart */}
+        {/* Top Projects */}
         <div className="col-md-6">
           <div className="card shadow-sm p-3">
             <h6 className="text-secondary mb-3 fw-bold">Top Projects</h6>
@@ -146,13 +220,26 @@ const DashboardCharts: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Chart */}
+        {/* Members */}
         <div className="col-md-6">
           <div className="card shadow-sm p-3">
             <h6 className="text-secondary mb-3 fw-bold">Members</h6>
             <Chart
               options={membersOptions}
               series={membersSeries}
+              type="donut"
+              height={320}
+            />
+          </div>
+        </div>
+
+        {/* Task Status */}
+        <div className="col-md-6 mt-4">
+          <div className="card shadow-sm p-3">
+            <h6 className="text-secondary mb-3 fw-bold">Task Status</h6>
+            <Chart
+              options={taskOptions}
+              series={taskSeries}
               type="donut"
               height={320}
             />
