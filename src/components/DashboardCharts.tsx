@@ -2,6 +2,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { ApexOptions } from "apexcharts";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -19,7 +20,7 @@ const DashboardCharts: React.FC = () => {
     const totalHours = topProjectsSeries.reduce((a, b) => a + b, 0);
     const totalFormatted = formatTime(totalHours);
 
-    const topProjectsOptions = {
+    const topProjectsOptions: ApexOptions = {
         chart: {
             type: "radialBar",
             height: 350,
@@ -57,11 +58,11 @@ const DashboardCharts: React.FC = () => {
             position: "left",
             fontSize: "13px",
             markers: {
-                width: 3,
-                height: 20,
+                // width: 3,
+                // height: 20,
                 strokeWidth: 0,
-                strokeColor: "#fff",
-                radius: 0,
+                // strokeColor: "#fff",
+                // radius: 0,
                 offsetX: -5,
                 offsetY: 2,
                 customHTML: () =>
@@ -82,7 +83,7 @@ const DashboardCharts: React.FC = () => {
     const membersSeries = [700, 30]; // Online, Offline
     const totalMembers = membersSeries.reduce((a, b) => a + b, 0);
 
-    const membersOptions = {
+    const membersOptions: ApexOptions = {
         chart: { type: "donut" },
         labels: ["Online", "Offline"],
         colors: ["#00C853", "#E0E0E0"],
@@ -92,9 +93,9 @@ const DashboardCharts: React.FC = () => {
             position: "left",
             fontSize: "13px",
             markers: {
-                width: 10,
-                height: 10,
-                radius: 50,
+                // width: 10,
+                // height: 10,
+                // radius: 50,
                 offsetX: -5,
                 offsetY: 0,
             },
@@ -145,7 +146,7 @@ const DashboardCharts: React.FC = () => {
     const taskSeries = [25, 25, 50]; // Completed, In Development (2), Remaining tasks
     const totalTasks = taskSeries.reduce((a, b) => a + b, 0);
 
-    const taskOptions = {
+    const taskOptions: ApexOptions = {
         chart: { type: "donut" },
         labels: ["Completed", "In Development", "Remaining"],
         colors: ["#00BCD4", "#B0BEC5", "#CFD8DC"], // light cyan, gray tones
@@ -155,9 +156,9 @@ const DashboardCharts: React.FC = () => {
             position: "left",
             fontSize: "13px",
             markers: {
-                width: 10,
-                height: 10,
-                radius: 50,
+                // width: 10,
+                // height: 10,
+                // radius: 50,
                 offsetX: -5,
                 offsetY: 0,
             },
@@ -210,7 +211,7 @@ const DashboardCharts: React.FC = () => {
     const budgetSeries = [65, 35]; // Used, Remaining
     const totalBudget = budgetSeries.reduce((a, b) => a + b, 0);
 
-    const budgetOptions = {
+    const budgetOptions: ApexOptions = {
         chart: { type: "donut" },
         labels: ["Used", "Remaining"],
         colors: ["#2196F3", "#E0E0E0"], // blue + gray
@@ -220,9 +221,9 @@ const DashboardCharts: React.FC = () => {
             position: "left",
             fontSize: "13px",
             markers: {
-                width: 10,
-                height: 10,
-                radius: 50,
+                // width: 10,
+                // height: 10,
+                // radius: 50,
                 offsetX: -5,
                 offsetY: 0,
             },
@@ -281,7 +282,7 @@ const DashboardCharts: React.FC = () => {
         },
     ];
 
-    const projectOptions = {
+    const projectOptions: ApexOptions = {
         chart: {
             type: "bar",
             height: 350,
@@ -321,9 +322,9 @@ const DashboardCharts: React.FC = () => {
             position: "bottom",
             fontSize: "13px",
             markers: {
-                width: 10,
-                height: 10,
-                radius: 50,
+                // width: 10,
+                // height: 10,
+                // radius: 50,
             },
             itemMargin: {
                 horizontal: 10,
@@ -362,7 +363,7 @@ const DashboardCharts: React.FC = () => {
         },
     ];
 
-    const projectOptionsForGraph = {
+    const projectOptionsForGraph: ApexOptions = {
         chart: {
             type: "bar",
             height: 350,
@@ -434,11 +435,11 @@ const DashboardCharts: React.FC = () => {
 
 
 
-     // ======== Budget vs Actualisation A ========
+    // ======== Budget vs Actualisation A ========
     const budgetActualisationSeries = [10, 30, 10]; // Completed, In Development (2), Remaining tasks
     const totalbudgetActualisationSeries = budgetActualisationSeries.reduce((a, b) => a + b, 0);
 
-    const budgetActualisationOptions = {
+    const budgetActualisationOptions: ApexOptions = {
         chart: { type: "donut" },
         labels: ["Budgeted FY-25", "Actualisation", "Pending"],
         colors: ["#6c757d", "#00BCD4", "#dc3545"], // light cyan, gray tones
@@ -448,9 +449,9 @@ const DashboardCharts: React.FC = () => {
             position: "left",
             fontSize: "13px",
             markers: {
-                width: 10,
-                height: 10,
-                radius: 50,
+                // width: 10,
+                // height: 10,
+                // radius: 50,
                 offsetX: -5,
                 offsetY: 0,
             },
@@ -497,11 +498,11 @@ const DashboardCharts: React.FC = () => {
         },
     };
 
-     // ======== Budget vs Actualisation B ========
+    // ======== Budget vs Actualisation B ========
     const budgetActualisationSeriesB = [25, 10, 15]; // Completed, In Development (2), Remaining tasks
     const totalbudgetActualisationSeriesB = budgetActualisationSeriesB.reduce((a, b) => a + b, 0);
 
-    const budgetActualisationOptionsB = {
+    const budgetActualisationOptionsB: ApexOptions = {
         chart: { type: "donut" },
         labels: ["Total Running Projects in FY-25", "Budgeted", "UnBudgeted"],
         colors: ["#00BCD4", "#dc3545", "#6c757d"], // light cyan, gray tones
@@ -511,9 +512,9 @@ const DashboardCharts: React.FC = () => {
             position: "left",
             fontSize: "13px",
             markers: {
-                width: 10,
-                height: 10,
-                radius: 50,
+                // width: 10,
+                // height: 10,
+                // radius: 50,
                 offsetX: -5,
                 offsetY: 0,
             },
@@ -646,7 +647,7 @@ const DashboardCharts: React.FC = () => {
                     </div>
                 </div>
 
-                  {/* Budget vs Actualisation A */}
+                {/* Budget vs Actualisation A */}
                 <div className="col-md-6 mt-4">
                     <div className="card shadow-sm p-3">
                         <h6 className="text-secondary mb-3 fw-bold">Budget vs Actualisation against</h6>
